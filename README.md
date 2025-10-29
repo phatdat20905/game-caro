@@ -1,3 +1,25 @@
+# Caro Game Pro - Full Stack
+
+## Tech Stack
+- **Backend**: Node.js + Express + Socket.IO + PostgreSQL + Sequelize
+- **Frontend**: React + Vite + Tailwind + Howler + SimplePeer
+- **AI**: Minimax + Alpha-Beta Pruning
+- **Realtime**: Socket.IO + WebRTC Voice Chat
+- **Auth**: JWT + Refresh Token
+
+## Chạy dự án
+```bash
+# Backend
+cd backend
+cp .env.example .env
+docker-compose up --build
+
+# Frontend
+cd frontend
+cp .env.example .env
+npm run dev
+```
+```bash
 caro-game/
 ├── backend/                          # Backend: Node.js + Express + PostgreSQL
 │   ├── config/
@@ -127,3 +149,4 @@ caro-game/
 ├── .gitignore
 ├── README.md
 └── git_history.txt
+```
