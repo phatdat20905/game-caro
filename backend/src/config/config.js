@@ -11,7 +11,7 @@ const commonConfig = {
     acquire: parseInt(process.env.DB_POOL_ACQUIRE) || 30000,
     idle: parseInt(process.env.DB_POOL_IDLE) || 10000
   },
-  logging: process.env.NODE_ENV === 'development' ? console.log : false
+  // logging: process.env.NODE_ENV === 'development' ? console.log : false
 };
 
 export default {

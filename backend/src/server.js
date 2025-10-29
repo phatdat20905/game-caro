@@ -1,5 +1,7 @@
+// src/server.js
 import express from 'express';
 import cors from 'cors';
+import routes from './routes/index.js';
 import { connectDatabase } from './config/database.js';
 
 const app = express();
@@ -8,25 +10,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Route kiểm tra server
+// Routes
+app.use('/api', routes);
+
+// Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'OK' });
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Khởi động server
+// 404
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// Khởi động
 const startServer = async () => {
   try {
-    // Kết nối database
     await connectDatabase();
-    console.log('✅ Database connected successfully.');
+    console.log('Database connected successfully.');
 
-    // Lắng nghe cổng
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
-      console.log(`🚀 Server is running at http://localhost:${PORT}`);
+      console.log(`Server is running at http://localhost:${PORT}`);
+      console.log(`API: http://localhost:${PORT}/api/auth/register`);
     });
   } catch (err) {
-    console.error('❌ Failed to connect to database:', err.message);
+    console.error('Failed to start server:', err.message);
     process.exit(1);
   }
 };
