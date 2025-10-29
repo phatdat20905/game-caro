@@ -4,6 +4,7 @@ import authRoutes from './auth.routes.js';
 import roomRoutes from './room.routes.js';
 import friendRoutes from './friend.routes.js';
 import adminRoutes from './admin.routes.js';
+import gameRoutes from './game.routes.js';
 
 const router = Router();
 
@@ -11,5 +12,6 @@ router.use('/auth', authRoutes);
 router.use('/rooms', roomRoutes);
 router.use('/friends', friendRoutes);
 router.use('/admin', adminRoutes);
+router.use('/games', gameRoutes);
 
 export default router;
