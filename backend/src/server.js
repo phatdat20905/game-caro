@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import routes from './routes/index.js';
 import { connectDatabase } from './config/database.js';
+import { errorHandler } from './middleware/error.middleware.js';
 
 const app = express();
 
@@ -23,6 +24,9 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
+// Global Error Handler
+app.use(errorHandler);
+
 // Khởi động
 const startServer = async () => {
   try {
@@ -31,11 +35,11 @@ const startServer = async () => {
 
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
-      console.log(`Server is running at http://localhost:${PORT}`);
-      console.log(`API: http://localhost:${PORT}/api/auth/register`);
+      console.log(`Server running at http://localhost:${PORT}`);
+      console.log(`Auth API: /api/auth/register`);
     });
   } catch (err) {
-    console.error('Failed to start server:', err.message);
+    console.error('Failed to start:', err.message);
     process.exit(1);
   }
 };
