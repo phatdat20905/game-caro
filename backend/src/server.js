@@ -1,14 +1,34 @@
-// server/index.js
-const express = require("express");
-const cors = require("cors");
+import express from 'express';
+import cors from 'cors';
+import { connectDatabase } from './config/database.js';
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Caro backend is running!");
+// Route kiểm tra server
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK' });
 });
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+// Khởi động server
+const startServer = async () => {
+  try {
+    // Kết nối database
+    await connectDatabase();
+    console.log('✅ Database connected successfully.');
+
+    // Lắng nghe cổng
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running at http://localhost:${PORT}`);
+    });
+  } catch (err) {
+    console.error('❌ Failed to connect to database:', err.message);
+    process.exit(1);
+  }
+};
+
+startServer();
