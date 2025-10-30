@@ -9,6 +9,8 @@ router.use(authenticate);
 
 router.post('/send', FriendController.send);
 router.post('/accept/:requestId', FriendController.accept);
+router.post('/decline/:requestId', FriendController.decline);
+router.delete('/:friendId', FriendController.remove);
 router.get('/', FriendController.list);
 router.get('/requests', FriendController.requests);
 

@@ -21,6 +21,26 @@ export const accept = async (req, res) => {
   }
 };
 
+export const decline = async (req, res) => {
+  try {
+    const { requestId } = req.params;
+    await FriendService.declineRequest(requestId, req.user.id);
+    res.json({ message: 'Friend request declined' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+export const remove = async (req, res) => {
+  try {
+    const { friendId } = req.params;
+    await FriendService.removeFriend(req.user.id, parseInt(friendId));
+    res.json({ message: 'Friend removed successfully' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 export const list = async (req, res) => {
   try {
     const friends = await FriendService.getFriends(req.user.id);

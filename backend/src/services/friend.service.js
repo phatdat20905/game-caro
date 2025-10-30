@@ -29,6 +29,28 @@ export const acceptRequest = async (requestId, userId) => {
   return request;
 };
 
+export const declineRequest = async (requestId, userId) => {
+  const request = await FriendRequest.findOne({
+    where: { id: requestId, toId: userId, status: 'pending' }
+  });
+  if (!request) throw new Error('Request not found');
+
+  await request.update({ status: 'declined' });
+  return request;
+};
+
+export const removeFriend = async (userId, friendId) => {
+  // Check if they are actually friends
+  const friendship = await Friend.findOne({
+    where: { userId, friendId }
+  });
+  if (!friendship) throw new Error('Not friends with this user');
+
+  // Remove both sides of the friendship
+  await Friend.destroy({ where: { userId, friendId } });
+  await Friend.destroy({ where: { userId: friendId, friendId: userId } });
+};
+
 export const getFriends = async (userId) => {
   return await Friend.findAll({
     where: { userId },
