@@ -7,9 +7,9 @@ import Header from './components/layout/Header.jsx';
 import Login from './pages/Auth/Login.jsx';
 import Register from './pages/Auth/Register.jsx';
 import Lobby from './pages/Lobby.jsx';
-// import GameRoom from './pages/GameRoom.jsx';
-// import Leaderboard from './pages/Leaderboard.jsx';
-// import Friends from './pages/Friends.jsx';
+import GameRoom from './pages/GameRoom.jsx';
+import Leaderboard from './pages/Leaderboard.jsx';
+import Friends from './pages/Friends.jsx';
 // import Replay from './pages/Replay.jsx';
 // import AdminPanel from './pages/AdminPanel.jsx';
 
@@ -56,10 +56,10 @@ function App() {
               <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
               <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
               <Route path="/" element={<ProtectedRoute><Lobby /></ProtectedRoute>} />
-              {/* <Route path="/room/:roomId" element={<ProtectedRoute><GameRoom /></ProtectedRoute>} /> */}
-              {/* <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+              <Route path="/room/:roomId" element={<ProtectedRoute><GameRoom /></ProtectedRoute>} />
+              <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
               <Route path="/friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />
-              <Route path="/replay/:gameId" element={<ProtectedRoute><Replay /></ProtectedRoute>} />
+              {/* <Route path="/replay/:gameId" element={<ProtectedRoute><Replay /></ProtectedRoute>} />
               <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} /> */}
             </Routes>
           </main>
