@@ -6,6 +6,7 @@ import friendRoutes from './friend.routes.js';
 import adminRoutes from './admin.routes.js';
 import gameRoutes from './game.routes.js';
 import replayRoutes from './replay.routes.js';
+import userRoutes from './user.routes.js';
 
 const router = Router();
 
@@ -15,5 +16,6 @@ router.use('/friends', friendRoutes);
 router.use('/admin', adminRoutes);
 router.use('/games', gameRoutes);
 router.use('/replay', replayRoutes);
+router.use('/users', userRoutes);
 
 export default router;
