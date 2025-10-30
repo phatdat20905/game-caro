@@ -8,6 +8,7 @@ import voiceHandler from './voice.socket.js';
 import userHandler from './user.socket.js';
 import aiHandler from './ai.socket.js';
 import quickplayHandler, { cleanupQuickPlayQueue } from './quickplay.socket.js';
+import globalChatHandler from './globalchat.socket.js';
 
 export const initSocket = (server) => {
   const io = new Server(server, {
@@ -33,6 +34,7 @@ export const initSocket = (server) => {
     voiceHandler(io, socket);
     aiHandler(io, socket);
     quickplayHandler(io, socket);
+    globalChatHandler(io, socket);
 
     socket.on('disconnect', () => {
       console.log(`❌ User ${socket.user.username} disconnected`);
