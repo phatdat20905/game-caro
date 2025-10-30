@@ -1,5 +1,6 @@
 // src/utils/jwt.js
 import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
 const ACCESS_SECRET = process.env.JWT_SECRET;
 const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;

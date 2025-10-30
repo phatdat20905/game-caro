@@ -1,4 +1,5 @@
 // src/server.js
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import routes from './routes/index.js';
@@ -8,13 +9,14 @@ import http from 'http';
 import { initSocket } from './socket/index.js';
 
 const app = express();
+const server = http.createServer(app);
+const io = initSocket(server);
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-const server = http.createServer(app);
-const io = initSocket(server);
+
 
 // Routes
 app.use('/api', routes);
