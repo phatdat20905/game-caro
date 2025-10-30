@@ -150,3 +150,71 @@ caro-game/
 ├── README.md
 └── git_history.txt
 ```
+
+
+
+
+```bash
+frontend/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── assets/
+│   │   ├── sounds/             # (tùy chọn nếu không dùng backend)
+│   │   └── icons/
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Button.jsx
+│   │   │   ├── Input.jsx
+│   │   │   └── Modal.jsx
+│   │   ├── game/
+│   │   │   ├── Board.jsx
+│   │   │   ├── Cell.jsx
+│   │   │   ├── ChatBox.jsx
+│   │   │   ├── VoiceChat.jsx
+│   │   │   └── ReplayPlayer.jsx
+│   │   ├── layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   └── Footer.jsx
+│   │   ├── room/
+│   │   │   ├── RoomCard.jsx
+│   │   │   ├── RoomList.jsx
+│   │   │   └── CreateRoomModal.jsx
+│   │   └── user/
+│   │       ├── Avatar.jsx
+│   │       ├── ProfileCard.jsx
+│   │       └── OnlineStatus.jsx
+│   ├── pages/
+│   │   ├── Auth/
+│   │   │   ├── Login.jsx
+│   │   │   └── Register.jsx
+│   │   ├── Home.jsx
+│   │   ├── Lobby.jsx
+│   │   ├── GameRoom.jsx
+│   │   ├── Leaderboard.jsx
+│   │   ├── Friends.jsx
+│   │   ├── Replay.jsx
+│   │   └── AdminPanel.jsx
+│   ├── services/
+│   │   ├── api.js              # Axios instance
+│   │   ├── socket.js           # Socket.IO client
+│   │   ├── auth.js             # Auth store + API
+│   │   ├── room.js             # Room API + Socket
+│   │   ├── game.js             # Game logic + AI
+│   │   └── sound.js            # Howler wrapper
+│   ├── store/
+│   │   └── useStore.js         # Zustand global state
+│   ├── utils/
+│   │   ├── constants.js
+│   │   └── helpers.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .env
+├── .env.example
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
+└── package.json
+```

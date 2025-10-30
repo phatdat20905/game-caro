@@ -1,15 +1,33 @@
 // src/App.jsx
-function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-10 rounded-2xl shadow-2xl text-center">
-        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-4">
-          Caro Pro
-        </h1>
-        <p className="text-gray-600">Frontend đã sẵn sàng!</p>
-      </div>
-    </div>
-  )
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useStore } from './store/useStore.js';
+import Login from './pages/Auth/Login.jsx';
+import Register from './pages/Auth/Register.jsx';
+import Lobby from './pages/Lobby.jsx';
+
+function ProtectedRoute({ children }) {
+  const { user } = useStore();
+  return user ? children : <Navigate to="/login" replace />;
 }
 
-export default App
+function AuthRoute({ children }) {
+  const { user } = useStore();
+  return user ? <Navigate to="/" replace /> : children;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+        <Routes>
+          <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
+          <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
+          <Route path="/" element={<ProtectedRoute><Lobby /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+}
+
+export default App;
