@@ -49,3 +49,21 @@ export const getAllUsers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const getStats = async (req, res) => {
+  try {
+    const stats = await UserService.getUserStats(req.user.id);
+    res.json(stats);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+export const getGames = async (req, res) => {
+  try {
+    const games = await UserService.getUserGames(req.user.id);
+    res.json(games);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

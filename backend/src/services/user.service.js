@@ -59,3 +59,77 @@ export const getAllUsers = async () => {
     order: [['score', 'DESC']]
   });
 };
+
+export const getUserStats = async (userId) => {
+  const { Game } = db;
+  
+  const totalGames = await Game.count({
+    where: {
+      [db.Sequelize.Op.or]: [
+        { player1Id: userId },
+        { player2Id: userId }
+      ]
+    }
+  });
+
+  const wins = await Game.count({
+    where: {
+      winner: userId
+    }
+  });
+
+  const losses = await Game.count({
+    where: {
+      [db.Sequelize.Op.and]: [
+        {
+          [db.Sequelize.Op.or]: [
+            { player1Id: userId },
+            { player2Id: userId }
+          ]
+        },
+        { winner: { [db.Sequelize.Op.ne]: null } },
+        { winner: { [db.Sequelize.Op.ne]: userId } }
+      ]
+    }
+  });
+
+  const draws = await Game.count({
+    where: {
+      [db.Sequelize.Op.and]: [
+        {
+          [db.Sequelize.Op.or]: [
+            { player1Id: userId },
+            { player2Id: userId }
+          ]
+        },
+        { winner: null }
+      ]
+    }
+  });
+
+  return {
+    totalGames,
+    wins,
+    losses,
+    draws
+  };
+};
+
+export const getUserGames = async (userId) => {
+  const { Game } = db;
+  
+  return await Game.findAll({
+    where: {
+      [db.Sequelize.Op.or]: [
+        { player1Id: userId },
+        { player2Id: userId }
+      ]
+    },
+    include: [
+      { model: User, as: 'player1', attributes: ['id', 'username', 'avatar'] },
+      { model: User, as: 'player2', attributes: ['id', 'username', 'avatar'] }
+    ],
+    order: [['createdAt', 'DESC']],
+    limit: 50
+  });
+};

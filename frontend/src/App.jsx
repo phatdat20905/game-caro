@@ -11,6 +11,7 @@ import Leaderboard from './pages/Leaderboard.jsx';
 import Friends from './pages/Friends.jsx';
 import Replay from './pages/Replay.jsx';
 import AdminPanel from './pages/AdminPanel.jsx';
+import Profile from './pages/Profile.jsx';
 
 function ProtectedRoute({ children }) {
   const { user } = useStore();
@@ -47,6 +48,7 @@ function App() {
               <Route path="/room/:roomId" element={<ProtectedRoute><GameRoom /></ProtectedRoute>} />
               <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
               <Route path="/friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="/replay/:gameId" element={<ProtectedRoute><Replay /></ProtectedRoute>} />
 
               {/* CHỈ ADMIN MỚI VÀO ĐƯỢC */}

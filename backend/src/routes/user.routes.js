@@ -12,8 +12,11 @@ router.get('/profile/:id', optionalAuth, UserController.getProfile);
 // Auth required
 router.use(authenticate);
 router.get('/me', UserController.getMe);
+router.put('/avatar', UserController.updateAvatar);
 router.post('/update-avatar', UserController.updateAvatar);
 router.get('/search', UserController.search);
+router.get('/stats', UserController.getStats);
+router.get('/games', UserController.getGames);
 
 // Admin only
 router.get('/all', requireAdmin, UserController.getAllUsers);
