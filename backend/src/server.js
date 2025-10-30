@@ -7,6 +7,11 @@ import { connectDatabase } from './config/database.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import http from 'http';
 import { initSocket } from './socket/index.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +25,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api', routes);
+app.use('/sounds', express.static(path.join(__dirname, '../public/sounds')));
+app.use('/avatars', express.static(path.join(__dirname, '../public/avatars')));
 
 // Health check
 app.get('/health', (req, res) => {

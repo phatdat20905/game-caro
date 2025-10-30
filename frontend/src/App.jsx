@@ -10,7 +10,7 @@ import Lobby from './pages/Lobby.jsx';
 import GameRoom from './pages/GameRoom.jsx';
 import Leaderboard from './pages/Leaderboard.jsx';
 import Friends from './pages/Friends.jsx';
-// import Replay from './pages/Replay.jsx';
+import Replay from './pages/Replay.jsx';
 // import AdminPanel from './pages/AdminPanel.jsx';
 
 function ProtectedRoute({ children }) {
@@ -59,8 +59,8 @@ function App() {
               <Route path="/room/:roomId" element={<ProtectedRoute><GameRoom /></ProtectedRoute>} />
               <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
               <Route path="/friends" element={<ProtectedRoute><Friends /></ProtectedRoute>} />
-              {/* <Route path="/replay/:gameId" element={<ProtectedRoute><Replay /></ProtectedRoute>} />
-              <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} /> */}
+              <Route path="/replay/:gameId" element={<ProtectedRoute><Replay /></ProtectedRoute>} />
+              {/* <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} /> */}
             </Routes>
           </main>
         </div>
