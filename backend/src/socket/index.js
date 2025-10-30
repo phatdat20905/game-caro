@@ -10,19 +10,20 @@ import aiHandler from './ai.socket.js';
 
 export const initSocket = (server) => {
   const io = new Server(server, {
-    cors: { origin: '*', methods: ['GET', 'POST'] }
+    cors: {
+      origin: ['http://localhost:5173'], // Chỉ cho phép frontend
+      methods: ['GET', 'POST'],
+      credentials: true
+    }
   });
 
-  // Middleware: Xác thực token
   io.use(authenticateSocket);
 
   io.on('connection', (socket) => {
-    console.log(`User ${socket.user.username} connected (socket)`);
+    console.log(`User ${socket.user.username} connected (ID: ${socket.id})`);
 
-    // Gắn user vào socket
     socket.userId = socket.user.id;
 
-    // Xử lý các sự kiện
     userHandler(io, socket);
     roomHandler(io, socket);
     gameHandler(io, socket);

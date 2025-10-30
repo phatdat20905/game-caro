@@ -26,10 +26,26 @@ export default function Login() {
     if (!validate()) return;
 
     setLoading(true);
+    setErrors({});
+
     try {
-      const res = await api.post('/auth/login', form);
-      login(res.data.user, res.data.accessToken);
-      navigate('/');
+      // BƯỚC 1: LOGIN → LẤY TOKEN
+      const loginRes = await api.post('/auth/login', form);
+      const { accessToken } = loginRes.data;
+
+      // BƯỚC 2: DÙNG TOKEN → LẤY USER ĐẦY ĐỦ (CÓ ROLE)
+      const meRes = await api.get('/users/me');
+      const fullUser = meRes.data; // { id, username, avatar, score, role, status }
+
+      // BƯỚC 3: LƯU VÀO STORE
+      login(fullUser, accessToken);
+
+      // TỰ ĐỘNG CHUYỂN HƯỚNG THEO ROLE
+      if (fullUser.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       const msg = err.response?.data?.error || 'Đăng nhập thất bại';
       setErrors({ submit: msg });

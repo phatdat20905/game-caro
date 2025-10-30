@@ -29,9 +29,7 @@ export const authenticate = async (req, res, next) => {
 
 export const optionalAuth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (!authHeader?.startsWith('Bearer ')) {
-    return next(); // Không có token thì vẫn cho qua
-  }
+  if (!authHeader?.startsWith('Bearer ')) return next();
 
   const token = authHeader.split(' ')[1];
   try {
@@ -40,9 +38,7 @@ export const optionalAuth = async (req, res, next) => {
       attributes: ['id', 'username', 'avatar', 'role', 'status', 'isBanned']
     });
     if (user && !user.isBanned) req.user = user;
-  } catch {
-    // Nếu token lỗi thì vẫn cho qua, không gán req.user
-  }
+  } catch {}
   next();
 };
 
@@ -52,7 +48,9 @@ export const authenticateSocket = async (socket, next) => {
 
   try {
     const payload = verifyAccessToken(token);
-    const user = await User.findByPk(payload.userId);
+    const user = await User.findByPk(payload.userId, {
+      attributes: ['id', 'username', 'avatar']
+    });
     if (!user || user.isBanned) return next(new Error('Invalid user'));
 
     socket.user = { id: user.id, username: user.username, avatar: user.avatar };
